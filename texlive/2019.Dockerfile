@@ -12,3 +12,7 @@ RUN \
     chmod +x /tmp/setup.sh && \
     /tmp/setup.sh && \
     rm /tmp/setup.sh
+
+RUN \
+    groupadd --gid 2000 knuth && \
+    useradd --gid 2000 --uid 2000 --create-home knuth
