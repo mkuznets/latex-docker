@@ -11,6 +11,7 @@ runs:
   steps:
     - name: Compute image metadata
       id: image
+      shell: bash
       run: |
         TS=$(TZ=Etc/UTC date '+%Y%m%d')
         SHA=$(git rev-parse --short "$GITHUB_SHA")
