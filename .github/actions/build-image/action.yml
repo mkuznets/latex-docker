@@ -17,7 +17,6 @@ inputs:
     description: Image tags
     required: true
     default: ''
-outputs:
 
 runs:
   using: "composite"
