@@ -1,0 +1,28 @@
+on:
+  workflow_dispatch:
+
+name: Build
+jobs:
+  docker:
+    name: Build and push Docker image
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Compute image metadata
+        id: image
+        uses: .github/actions/image-meta.yml
+
+      - name: Build
+        uses: .github/actions/build-image.yml
+        with:
+          context: texlive
+          file: texlive/2013.Dockerfile
+          tags: |-
+            ghcr.io/mkuznets/texlive:2013
+            ghcr.io/mkuznets/texlive:2013-${{ steps.image.outputs.tag_suffix }}

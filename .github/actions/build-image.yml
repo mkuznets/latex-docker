@@ -1,0 +1,53 @@
+name: 'Build and push Docker image'
+description: 'Build and push Docker image'
+inputs:
+  context:
+    description: Docker context directory
+    required: true
+    default: '.'
+  dockerfile:
+    description: Dockerfile path
+    required: true
+    default: 'Dockerfile'
+  tags:
+    description: Image tags
+    required: true
+    default: ''
+outputs:
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+      with:
+        platforms: arm,arm64
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Compute image metadata
+      id: image
+      run: |
+        TS=$(TZ=Etc/UTC date '+%Y%m%d')
+        SHA=$(git rev-parse --short "$GITHUB_SHA")
+        TAG="${TS}-${SHA}"
+        echo "tag=${TAG}" > "$GITHUB_OUTPUT"
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v4
+      with:
+        push: false
+        context: ${{ inputs.context }}
+        file: ${{ inputs.dockerfile }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        platforms: linux/amd64
+        tags: ${{ inputs.tags }}

@@ -1,0 +1,18 @@
+name: 'Compute image metadata
+description: '...'
+
+outputs:
+  tag_suffix:
+    description: "Image tag suffix"
+    value: ${{ steps.image.outputs.tag }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Compute image metadata
+      id: image
+      run: |
+        TS=$(TZ=Etc/UTC date '+%Y%m%d')
+        SHA=$(git rev-parse --short "$GITHUB_SHA")
+        TAG="${TS}-${SHA}"
+        echo "tag=${TAG}" > "$GITHUB_OUTPUT"
