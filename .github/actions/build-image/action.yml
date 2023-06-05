@@ -1,6 +1,10 @@
 name: 'Build and push Docker image'
 description: 'Build and push Docker image'
 inputs:
+  token:
+    description: Github token
+    required: true
+    default: ''
   context:
     description: Docker context directory
     required: true
@@ -31,7 +35,7 @@ runs:
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+        password: ${{ inputs.token }}
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
