@@ -16,10 +16,10 @@ jobs:
 
       - name: Compute image metadata
         id: image
-        uses: .github/actions/image-meta.yml
+        uses: ./.github/actions/image-meta.yml
 
       - name: Build
-        uses: .github/actions/build-image.yml
+        uses: ./.github/actions/build-image.yml
         with:
           context: texlive
           file: texlive/2013.Dockerfile
