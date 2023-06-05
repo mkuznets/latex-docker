@@ -27,3 +27,78 @@ jobs:
           tags: |-
             ghcr.io/mkuznets/texlive:2013
             ghcr.io/mkuznets/texlive:2013-${{ steps.image.outputs.tag_suffix }}
+
+  texlive-2015:
+    name: texlive 2015
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Compute image metadata
+        id: image
+        uses: ./.github/actions/image-meta
+
+      - name: Build
+        uses: ./.github/actions/build-image
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          context: texlive
+          dockerfile: texlive/2015.Dockerfile
+          tags: |-
+            ghcr.io/mkuznets/texlive:2015
+            ghcr.io/mkuznets/texlive:2015-${{ steps.image.outputs.tag_suffix }}
+
+  texlive-2017:
+    name: texlive 2017
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Compute image metadata
+        id: image
+        uses: ./.github/actions/image-meta
+
+      - name: Build
+        uses: ./.github/actions/build-image
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          context: texlive
+          dockerfile: texlive/2017.Dockerfile
+          tags: |-
+            ghcr.io/mkuznets/texlive:2017
+            ghcr.io/mkuznets/texlive:2017-${{ steps.image.outputs.tag_suffix }}
+
+  texlive-2019:
+    name: texlive 2019
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Compute image metadata
+        id: image
+        uses: ./.github/actions/image-meta
+
+      - name: Build
+        uses: ./.github/actions/build-image
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          context: texlive
+          dockerfile: texlive/2019.Dockerfile
+          tags: |-
+            ghcr.io/mkuznets/texlive:2019
+            ghcr.io/mkuznets/texlive:2019-${{ steps.image.outputs.tag_suffix }}
