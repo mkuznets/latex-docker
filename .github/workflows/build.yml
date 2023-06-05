@@ -4,7 +4,7 @@ on:
 name: Build
 jobs:
   texlive-2013:
-    name: Build texlive 2013
+    name: texlive 2013
     runs-on: ubuntu-latest
     permissions:
       packages: write
