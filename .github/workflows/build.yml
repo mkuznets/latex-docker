@@ -23,7 +23,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           context: texlive
-          file: texlive/2013.Dockerfile
+          dockerfile: texlive/2013.Dockerfile
           tags: |-
             ghcr.io/mkuznets/texlive:2013
             ghcr.io/mkuznets/texlive:2013-${{ steps.image.outputs.tag_suffix }}
