@@ -3,8 +3,13 @@ on:
 
 name: Build
 jobs:
-  texlive-2013:
-    name: texlive 2013
+  texlive:
+    strategy:
+      matrix:
+        version:
+          - '2021'
+
+    name: texlive ${{ matrix.version }}
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -23,7 +28,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           context: texlive
-          dockerfile: texlive/2013.Dockerfile
+          dockerfile: texlive/${{ matrix.version }}.Dockerfile
           tags: |-
-            ghcr.io/mkuznets/texlive:2013
-            ghcr.io/mkuznets/texlive:2013-${{ steps.image.outputs.tag_suffix }}
+            ghcr.io/mkuznets/texlive:${{ matrix.version }}
+            ghcr.io/mkuznets/texlive:${{ matrix.version }}-${{ steps.image.outputs.tag_suffix }}

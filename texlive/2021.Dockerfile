@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:22.04
 
 LABEL maintainer="Max Kuznetsov <maks.kuznetsov@gmail.com>"
 LABEL org.opencontainers.image.source="https://github.com/mkuznets/latex-docker"
